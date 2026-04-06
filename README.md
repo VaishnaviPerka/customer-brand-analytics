@@ -174,10 +174,10 @@ Three hypothesis tests were run on **1.8M+ merged transaction + survey records**
 ```
 customer-brand-analytics/
 ├── data/
-│   └── sample_transactions.csv          # Anonymized sample data
+│   └── sample_dataset.csv          # Anonymized sample data
 ├── analysis/
 │   ├── data_cleaning.ipynb              # Preprocessing pipeline
-│   ├── eda_visualizations.ipynb         # Exploratory analysis & charts
+│   ├── merging_datasets.ipynb         # Exploratory analysis & charts
 │   └── statistical_tests.ipynb         # ANOVA hypothesis testing
 ├── dashboards/
 │   └── customer_behavior.pbix           # Power BI dashboard file
