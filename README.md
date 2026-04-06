@@ -178,11 +178,10 @@ customer-brand-analytics/
 ├── analysis/
 │   ├── data_cleaning.ipynb              # Preprocessing pipeline
 │   ├── merging_datasets.ipynb         # Exploratory analysis & charts
-│   └── statistical_tests.ipynb         # ANOVA hypothesis testing
-├── dashboards/
-│   └── customer_behavior.pbix           # Power BI dashboard file
+│   └── statistical_tests.ipynb         # ANOVA hypothesis testing        
 ├── reports/
 │   └── CustomerBehaviorAnalysis.pdf     # Full presentation (21 slides)
+|   └── customer_behavior.pbix            # Power BI dashboard file
 └── README.md
 ```
 
