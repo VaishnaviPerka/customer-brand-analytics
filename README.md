@@ -37,13 +37,10 @@ customer-brand-analytics/
 │   ├── notebook2_survey_cleaning.ipynb      # Survey dataset: cleaning + EDA
 │   └── notebook3_merging_analysis.ipynb     # Dataset merging + statistical analysis
 ├── data/
-│   ├── cleaned_purchases_dataset.csv        # Output of Notebook 1
-│   ├── cleaned_survey_dataset.csv           # Output of Notebook 2
-│   └── Merged_Cleaned_final_dataset.csv     # Final merged dataset (Notebook 3 output)
-├── dashboards/
-│   └── customer_behavior.pbix               # Power BI dashboard file
+│   └── sample_dataset.csv
 ├── reports/
-│   └── insights_summary.pdf                 # Key findings report
+│   ├── Dashboard.pdf  
+│   └── Presentation_Slides.pdf              
 └── README.md
 ```
 
