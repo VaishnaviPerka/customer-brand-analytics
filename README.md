@@ -128,7 +128,6 @@ Interactive Power BI dashboards covering:
 - Loyalty segmentation (new, returning, churned)
 - Cross-brand transition flow
 
-> 🔗 **[View Power BI Dashboards](#)** ← *(link to be added)*
 
 ---
 
