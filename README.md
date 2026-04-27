@@ -1,171 +1,30 @@
-# Marketing Data Analytics using Amazon E-commerce Data
-### Implications to Retail Business Strategy
+# Customer Behavior & Brand Analytics
 
-> **MKT 4990 – Data Analytics Project**  
-> Vaishnavi Perka & Hariharan Jothimani — Data Science Graduates  
-> Advisor: Dr. Junhong Min · Michigan Technological University · 2026
+> Analyzing Amazon customer transaction data to uncover purchasing patterns, brand behavior, and demographic signals — with statistical validation and interactive Power BI dashboards.
 
-[![Status](https://img.shields.io/badge/Status-Completed-brightgreen)](https://github.com/VaishnaviPerka/customer-brand-analytics)
-[![Tools](https://img.shields.io/badge/Tools-Python%20%7C%20Pandas%20%7C%20Power%20BI%20%7C%20ANOVA-blue)](https://github.com/VaishnaviPerka/customer-brand-analytics)
-[![Data](https://img.shields.io/badge/Dataset-Amazon%20Open%20eCommerce%201.0-orange)](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/YGLYDY)
+[![Status](https://img.shields.io/badge/Status-In%20Progress-yellow)](https://github.com/VaishnaviPerka/customer-brand-analytics)
+[![Python](https://img.shields.io/badge/Python-3.x-blue)](https://www.python.org/)
+[![Tools](https://img.shields.io/badge/Tools-Power%20BI%20%7C%20pandas%20%7C%20statsmodels-blue)](https://github.com/VaishnaviPerka/customer-brand-analytics)
 
 ---
 
 ## 📌 Project Overview
 
-This project turns raw Amazon e-commerce transaction data into actionable business insights. By combining over **1 million purchase records** with a **5,027-user demographic survey**, we analyzed customer behavior across product categories, demographics, geographies, and time — then validated findings using statistical hypothesis testing.
+This project analyzes a large-scale Amazon purchase dataset (1.85M+ transactions across 5,027 users) linked with survey-collected demographic and lifestyle data. The goal is to surface actionable insights for targeted marketing strategies by identifying behavioral patterns, loyalty signals, and demographic drivers of purchasing behavior.
 
-*"We combined what people buy with who they are."*
-
----
-
-## 📦 Data Sources
-
-| Dataset | Size | Contents |
-|---|---|---|
-| Amazon Transaction Dataset | 1M+ records | Purchase records, product categories, brands, quantities, dates |
-| Customer Survey Dataset | 5,027 users | Age, Gender, Income, Family Size, Account Usage, State |
-
-**Key fields used:** Age · Gender · Income · Purchase Quantity · Family Size · Account Usage · State
-
-**Source:** [Open e-Commerce 1.0 · Harvard Dataverse · doi:10.7910/DVN/YGLYDY](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/YGLYDY)
+The dataset is sourced from the [Harvard Dataverse](https://dataverse.harvard.edu/) and includes both purchase history and Qualtrics survey responses collected from real Amazon users.
 
 ---
 
-## 🧹 Data Cleaning & Preprocessing
+## 🎯 Objectives
 
-Real-world data is messy — about 80% of this project's effort went into cleaning before any analysis began.
-
-| Step | Problem | Solution |
-|---|---|---|
-| Rename Columns | Cryptic names like `Survey ResponseID`, `ASIN/ISBN` | Standardized to `User ID`, `Product ID`, `State` |
-| Fill Missing Values | 89,457 nulls in Category; 89,739 in Title; 87,811 in State | Replaced with `"Unknown"` |
-| Fix Date Types | `Order Date` stored as plain text string | Split into separate `Year`, `Month`, `Day` columns |
-| Flag Duplicates | 11,624 duplicate rows found | First instance flagged; duplicates removed |
-
-### Category Engineering
-
-400+ raw product codes (e.g., `LAPTOP_ACCESSORIES`, `ABIS_WIRELESS`, `GUITAR_STRINGS`) were mapped via keyword matching into **25 clean, meaningful categories**:
-
-`Electronics` · `Clothing` · `Beauty` · `Food` · `Sports` · `Health` · `Home-Bed-Bath` · `Kitchen` · `Toys` · `Pet Supplies` · `Books` · `Automotive` · `Hardware` · `Baby` · `Jewelry` · `Office Supplies` · `Music & Media` · `Luggage & Travel` · `Garden & Outdoor` · `Industrial` · `Household Essentials` · `Software` · `Collectibles` · `Misc`
-
----
-
-## 📊 Key Findings
-
-### What Do Customers Buy the Most?
-- **Food (18.37%)** and **Home-Bed-Bath (16.84%)** are the top two categories — driven by everyday necessity
-- Electronics (12.95%) ranks third
-- Essential products dominate demand
-
-### How Purchases Changed Over Time
-- Steady growth from **2018 to 2021**
-- **Peak in 2020–2021** — pandemic-driven demand surge
-- Post-2021 slight decline signals need for re-engagement
-
-### Who Buys More?
-- **Young adults aged 25–44** are the most active customers (~62% of purchases combined)
-- **Female buyers slightly outnumber males**
-
-### Where Are Customers Located?
-Top 5 states by user count:
-
-| State | Share |
-|---|---|
-| CA | 18.30% |
-| FL | 15.10% |
-| TX | 14.82% |
-| NY | 11.90% |
-| PA | 10.51% |
-
----
-
-## 📐 Statistical Analysis
-
-Three hypothesis tests were run on **1.8M+ merged transaction + survey records** to validate behavioral significance.
-
-### Test 1 — Account Sharing vs. Purchase Quantity (One-Way ANOVA)
-> H₀: Number of account users has NO significant effect on purchase quantity
-
-| Metric | Value |
-|---|---|
-| F-statistic | 5.477 |
-| p-value | 0.0009 |
-| Result | **Significant (p < 0.05) ✓** |
-
-**Finding:** Solo users (1 account) drive the highest purchases (1,089K). Purchase volume drops sharply as account sharing increases (2 users: 637K → 4+ users: 111K).
-
----
-
-### Test 2 — Family Size × Age Group vs. Purchase Quantity (Two-Way ANOVA)
-> H₀: Family size & age group have NO significant effect on purchase quantity
-
-| Factor | p-value | Significant? |
-|---|---|---|
-| Family Size | 1.92e-11 | Yes ✓ |
-| Age Group | 1.12e-144 | Yes ✓ |
-| Interaction (Family × Age) | 2.28e-30 | Yes ✓ |
-
-**Key Findings:**
-- Age group has the **strongest independent effect** (F=136)
-- **2-person households** make the highest total purchases
-- Age moderates how family size influences buying behavior
-
----
-
-### Test 3 — App Usage × Income vs. Purchase Quantity (Two-Way ANOVA)
-> H₀: App usage frequency & income level have NO significant effect on purchase quantity
-
-| Factor | p-value | Significant? |
-|---|---|---|
-| Account Usage | 2.58e-04 | Yes ✓ |
-| Income Level | 1.70e-37 | Yes ✓ |
-| Interaction (Usage × Income) | 4.64e-28 | Yes ✓ |
-
-**Key Findings:**
-- **Income level** drives the strongest differences in buying volume (F=31.0)
-- Heavy app usage alone doesn't predict purchases; Pearson r(usage, qty) ≈ 0.000
-- Income moderates how usage affects purchasing behavior
-
----
-
-## 💼 Business Recommendations
-
-### For Amazon
-| Area | Insight | Action |
-|---|---|---|
-| Target Key Customers | 25–44 age group drives most purchases; females slightly outnumber males | Personalized ads & recommendations for this segment |
-| Prioritize Top Categories | Food (18%) and Home-Bed-Bath (16%) dominate | Heavy stocking, promotions, and seasonal campaigns |
-| Brand Data Quality | "Unknown" brands account for 4.74% of records | Enforce complete brand tagging in seller onboarding |
-| Avoid Wrong Assumptions | Shared accounts buy less; app usage ≠ purchase volume | Rethink family plan strategy; focus on income-aware targeting |
-
-### For Houghton Local Retailers
-- **Know your customer:** MTU students & young professionals (25–44) are the prime segment — offer student discounts, loyalty cards, bundle deals
-- **Stock what Amazon can't beat:** Locally-sourced products, UP/Michigan-themed goods, niche outdoor gear aligned with MTU's active campus lifestyle
-- **Go digital:** Digitize sales data; benchmark pricing using Amazon bestseller data and Keepa API
-- **Leverage local loyalty:** Houghton is a tight-knit community — invest in MTU club partnerships, local events, and community sponsorships
-
----
-
-## 🔮 Future Work
-
-- **ML Prediction Models** — predict customer purchases before they happen
-- **Personalized Recommendations** — product suggestions tailored to each customer's demographic profile
-- **Real-Time Dashboards** — live data monitoring for instant business decisions
-- **Customer Segmentation** — cluster customers into meaningful groups for targeted campaigns
-
-*"We can move from analysis → prediction → personalization."*
-
----
-
-## 🛠️ Tech Stack
-
-| Category | Tools |
-|---|---|
-| Data Manipulation | Python, Pandas |
-| Statistical Testing | One-Way ANOVA, Two-Way ANOVA, Pearson Correlation |
-| Visualization | Power BI, Matplotlib / Seaborn |
-| Category Engineering | Keyword Matching (Python) |
+- Clean and engineer features from raw Amazon transaction and survey data
+- Extract brand names from unstructured product titles using rule-based NLP
+- Consolidate 1,800+ Amazon product codes into 26 human-readable categories
+- Run statistical tests (ANOVA) to validate behavioral hypotheses across demographic groups
+- Merge multi-source datasets for unified analysis
+- Build interactive Power BI dashboards to communicate insights to stakeholders
+- Develop a brand recommendation framework using historical purchase behavior *(in progress)*
 
 ---
 
@@ -173,21 +32,138 @@ Three hypothesis tests were run on **1.8M+ merged transaction + survey records**
 
 ```
 customer-brand-analytics/
+├── notebooks/
+│   ├── notebook1_purchases_cleaning.ipynb   # Purchases dataset: cleaning + feature engineering
+│   ├── notebook2_survey_cleaning.ipynb      # Survey dataset: cleaning + EDA
+│   └── notebook3_merging_analysis.ipynb     # Dataset merging + statistical analysis
 ├── data/
-│   └── sample_dataset.csv          # Anonymized sample data
-├── analysis/
-│   ├── data_cleaning.ipynb              # Preprocessing pipeline
-│   ├── merging_datasets.ipynb         # Exploratory analysis & charts
-│   └── statistical_tests.ipynb         # ANOVA hypothesis testing        
+│   ├── cleaned_purchases_dataset.csv        # Output of Notebook 1
+│   ├── cleaned_survey_dataset.csv           # Output of Notebook 2
+│   └── Merged_Cleaned_final_dataset.csv     # Final merged dataset (Notebook 3 output)
+├── dashboards/
+│   └── customer_behavior.pbix               # Power BI dashboard file
 ├── reports/
-│   └── CustomerBehaviorAnalysis.pdf     # Full presentation (21 slides)
-|   └── customer_behavior.pbix            # Power BI dashboard file
+│   └── insights_summary.pdf                 # Key findings report
 └── README.md
 ```
 
 ---
 
-## 👩‍💻 Authors
+## 🔬 Notebook Breakdown
 
-**Vaishnavi Perka** — [LinkedIn](https://www.linkedin.com/in/vaishnavi-perka) · [Portfolio](https://vaishnaviperka.github.io)  
-**Hariharan Jothimani** — Data Science Graduate, Michigan Technological University
+### 📦 Notebook 1 — Purchases Dataset: Cleaning & Category Engineering
+
+**Input:** `amazon-purchases.csv` (1,850,699 rows × 8 columns, Harvard Dataverse)  
+**Output:** `cleaned_purchases_dataset.csv`
+
+**Key steps:**
+
+- **Column standardization** — renamed verbose Qualtrics-style column names (e.g., `ASIN/ISBN (Product Code)` → `Product_ID`, `Survey ResponseID` → `User_ID`)
+- **Missing value imputation** — ~89K NaNs in `Category` and `Title`, ~88K in `State`, filled with `"Unknown"` to retain valid transaction rows
+- **Date extraction** — parsed `Order Date` into separate `Year`, `Month`, and `Day` columns for time-series grouping
+- **Duplicate detection & removal** — flagged 11,624 duplicate rows (same user, product, date, price, quantity); flagged before removal for transparency. Final shape: **~1,839,075 rows**
+- **Brand name extraction** — rule-based `extract_brand()` function extracting brand from unstructured Amazon product titles using a 12-step priority heuristic (e.g., `"by BRAND"` pattern, quantity prefix stripping, multi-word brand matching, fallback first-token logic), supported by curated word filter lists (`GENERIC_WORDS`, `MARKETING_WORDS`, `COLORS`, etc.)
+- **Category engineering** — consolidated 1,872 raw Amazon product codes into 26 broad, human-readable categories (e.g., Electronics, Beauty, Home & Kitchen)
+- **Exploratory visualizations** — bar charts, distribution plots
+
+---
+
+### 📋 Notebook 2 — Survey Dataset: Cleaning
+
+**Input:** `survey.csv` (5,027 rows × 23 columns, Harvard Dataverse)  
+**Output:** `cleaned_survey_dataset.csv`
+
+**Dataset description:** Demographics and lifestyle survey collected via Qualtrics from Amazon users. Columns cover age, race, gender, income, education, household size, account usage frequency, substance use, disability status, life events, and data privacy attitudes.
+
+**Key steps:**
+
+- **Column renaming** — all 23 Qualtrics question codes renamed to human-readable labels (e.g., `Q-demos-age` → `Age`, `Q-sell-YOUR-data` → `Sell_Data`)
+- **Missing value handling** — only `Life_Changes` had NaNs (~3,384) as it was an optional free-text field; filled with `"N/A"`
+- **Duplicate check** — no duplicates found (each respondent completed the survey exactly once); 5,027 unique `User_ID`s confirmed
+- **Exploratory visualizations** — age distribution (bar chart), gender distribution (pie chart), Amazon usage frequency (count plot), Income vs Education heatmap
+
+---
+
+### 🔗 Notebook 3 — Dataset Merging & Statistical Analysis
+
+**Inputs:** `cleaned_purchases_final.csv`, `cleaned_survey_dataset.csv`  
+**Output:** `Merged_Cleaned_final_dataset.csv` (~1,839,075 rows × 34 columns)
+
+**Merging approach:** Inner join on `User_ID`. Result includes 5,026 matched users (1 survey respondent opted out of sharing purchase data — expected by design).
+
+**Post-merge cleaning:**
+- Resolved duplicate `State` columns (`State_x` = shipping state from purchases; `State_y` = home state from survey) by standardizing `State_y` full names to 2-letter abbreviations using a state mapping dictionary, then renaming to `Order_State` and `State` respectively
+
+**Statistical Analysis (3 tests):**
+
+| # | Research Question | Method | Variables |
+|---|---|---|---|
+| 1 | Does account sharing affect purchase quantity? | One-Way ANOVA | IV: `No. of Users`; DV: `Quantity` |
+| 2 | Does family size affect purchase quantity, and does income moderate this? | Two-Way ANOVA with interaction | IV1: `Family Size`; IV2: `Income`; DV: `Quantity` |
+| 3 | Does Amazon account usage frequency affect purchase quantity? | Two-Way ANOVA + Correlation | IV1: `Acc Usage`; IV2: `Age`; DV: `Quantity` |
+
+Each test follows a formal hypothesis structure (H₀ / H₁) with p-value interpretation at α = 0.05.
+
+---
+
+## 🛠️ Tech Stack
+
+| Category | Tools |
+|---|---|
+| Data Cleaning & Transformation | Python, pandas, numpy |
+| Feature Engineering | Rule-based NLP (regex, heuristics) |
+| Statistical Analysis | scipy (`f_oneway`), statsmodels (`ols`, `anova_lm`) |
+| Visualization | matplotlib, seaborn |
+| Dashboarding | Power BI, DAX |
+| Data Source | Harvard Dataverse (Amazon Purchases + Qualtrics Survey) |
+
+---
+
+## 📊 Dashboards
+
+Interactive Power BI dashboards covering:
+
+- Customer repurchase frequency and trends
+- Brand performance comparison
+- Loyalty segmentation (new, returning, churned)
+- Cross-brand transition flow
+
+> 🔗 **[View Power BI Dashboards](#)** ← *(link to be added)*
+
+---
+
+## 📈 Key Findings *(so far)*
+
+- Identified 11,624 duplicate transactions (primarily gift cards and recurring purchases) in the raw dataset, flagged and removed for clean analysis
+- Brand extraction successfully resolved brand identity for >99.9% of 1.85M product rows using a rule-based NLP pipeline with no ML dependency
+- 1,872 raw Amazon product codes consolidated into 26 actionable categories for downstream segmentation
+- Demographic variables (family size, income, account usage frequency) tested for relationship with purchase quantity via ANOVA — findings documented in Notebook 3
+- Repurchase and behavioral patterns visible across 5,026 matched users with both transaction and demographic data
+
+---
+
+## 🔮 Next Steps
+
+- Complete brand switching matrix and repurchase rate calculations segmented by cohort
+- Complete brand recommendation framework using purchase history
+- Incorporate customer-level demographic features into loyalty models
+- Publish final Power BI report publicly
+
+---
+
+## ⚙️ Setup & Usage
+
+1. Download the raw datasets from [Harvard Dataverse](https://dataverse.harvard.edu/)
+2. Clone this repository
+3. Install dependencies:
+   ```bash
+   pip install pandas numpy matplotlib seaborn scipy statsmodels
+   ```
+4. Update the `file_path` variables in each notebook to point to your local data directory
+5. Run notebooks in order: **Notebook 1 → Notebook 2 → Notebook 3**
+
+---
+
+## 👩‍💻 Author
+
+**Vaishnavi Perka** — [LinkedIn](https://www.linkedin.com/in/vaishnavi-perka) · [Portfolio](https://vaishnaviperka.github.io)
